@@ -20,7 +20,7 @@ class Perceptron(object):
         """
 
         self.w_ = np.zeros(1 + X.shape[1])
-        self.errors_ = []
+        self.errors_history_ = []
 
         for _ in range(self.n_iter):
             errors = 0
@@ -29,7 +29,7 @@ class Perceptron(object):
                 self.w_[1:] += update * xi
                 self.w_[0] += update
                 errors += int(update != 0.0)
-            self.errors_.append(errors)
+            self.errors_history_.append(errors)
         return self
 
     def net_input(self, X):
