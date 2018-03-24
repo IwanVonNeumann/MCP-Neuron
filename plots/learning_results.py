@@ -34,7 +34,7 @@ def plot_2d_decision_boundary(iris_df, classifier):
     plt.scatter(set_df["sepal length"], set_df["petal length"], color="blue", marker="x", label="setosa")
     plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="red", marker="o", label="versicolor")
 
-    plt.title("2 classes of Iris flowers")
+    plt.title("2 classes decision boundary")
     plt.xlabel("sepal length")
     plt.ylabel("petal length")
     plt.legend(loc="upper left")
