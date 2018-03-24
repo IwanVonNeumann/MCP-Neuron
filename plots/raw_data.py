@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from data_access import load_iris_data
+from data_access.iris import load_iris_data
 
 
 # y = df.iloc[0:100, 4].values

@@ -1,4 +1,4 @@
-from data_access import load_iris_data
+from data_access.iris import load_iris_data
 
 iris_df = load_iris_data()
 
