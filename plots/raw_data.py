@@ -9,8 +9,8 @@ def two_classes_plot(iris_df):
     plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="red", marker="o", label="versicolor")
 
     plt.title("2 classes of Iris flowers")
-    plt.xlabel("petal length")
-    plt.ylabel("sepal length")
+    plt.xlabel("sepal length")
+    plt.ylabel("petal length")
     plt.legend(loc="upper left")
     plt.show()
 
@@ -25,7 +25,7 @@ def three_classes_plot(iris_df):
     plt.scatter(vir_df["sepal length"], vir_df["petal length"], color="lime", marker="^", label="virginica")
 
     plt.title("3 classes of Iris flowers")
-    plt.xlabel("petal length")
-    plt.ylabel("sepal length")
+    plt.xlabel("sepal length")
+    plt.ylabel("petal length")
     plt.legend(loc="upper left")
     plt.show()
