@@ -9,13 +9,11 @@ from data_access import load_iris_data
 def two_classes_plot():
     iris_df = load_iris_data()
 
-    columns = ["sepal length", "petal length", "class"]
+    set_df = iris_df.loc[iris_df["class"] == "Iris-setosa"]
+    ver_df = iris_df.loc[iris_df["class"] == "Iris-versicolor"]
 
-    set_X = iris_df[columns].loc[iris_df["class"] == "Iris-setosa"]
-    ver_X = iris_df[columns].loc[iris_df["class"] == "Iris-versicolor"]
-
-    plt.scatter(set_X["sepal length"], set_X["petal length"], color="red", marker="o", label="setosa")
-    plt.scatter(ver_X["sepal length"], ver_X["petal length"], color="blue", marker="x", label="versicolor")
+    plt.scatter(set_df["sepal length"], set_df["petal length"], color="red", marker="o", label="setosa")
+    plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="blue", marker="x", label="versicolor")
     plt.xlabel("petal length")
     plt.ylabel("sepal length")
     plt.legend(loc="upper left")
@@ -25,15 +23,13 @@ def two_classes_plot():
 def three_classes_plot():
     iris_df = load_iris_data()
 
-    columns = ["sepal length", "petal length", "class"]
+    set_df = iris_df.loc[iris_df["class"] == "Iris-setosa"]
+    ver_df = iris_df.loc[iris_df["class"] == "Iris-versicolor"]
+    vir_df = iris_df.loc[iris_df["class"] == "Iris-virginica"]
 
-    set_X = iris_df[columns].loc[iris_df["class"] == "Iris-setosa"]
-    ver_X = iris_df[columns].loc[iris_df["class"] == "Iris-versicolor"]
-    vir_X = iris_df[columns].loc[iris_df["class"] == "Iris-virginica"]
-
-    plt.scatter(set_X["sepal length"], set_X["petal length"], color="blue", marker="x", label="setosa")
-    plt.scatter(ver_X["sepal length"], ver_X["petal length"], color="red", marker="o", label="versicolor")
-    plt.scatter(vir_X["sepal length"], vir_X["petal length"], color="limegreen", marker="^", label="virginica")
+    plt.scatter(set_df["sepal length"], set_df["petal length"], color="blue", marker="x", label="setosa")
+    plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="red", marker="o", label="versicolor")
+    plt.scatter(vir_df["sepal length"], vir_df["petal length"], color="limegreen", marker="^", label="virginica")
     plt.xlabel("petal length")
     plt.ylabel("sepal length")
     plt.legend(loc="upper left")
