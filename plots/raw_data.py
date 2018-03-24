@@ -1,9 +1,6 @@
 import matplotlib.pyplot as plt
 
 
-# y = df.iloc[0:100, 4].values
-# y = np.where(y == "Iris-setosa", -1, 1)
-
 def two_classes_plot(iris_df):
     set_df = iris_df[iris_df["class"] == "Iris-setosa"]
     ver_df = iris_df[iris_df["class"] == "Iris-versicolor"]
