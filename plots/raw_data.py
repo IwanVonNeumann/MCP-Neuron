@@ -5,8 +5,8 @@ def two_classes_plot(iris_df):
     set_df = iris_df[iris_df["class"] == "Iris-setosa"]
     ver_df = iris_df[iris_df["class"] == "Iris-versicolor"]
 
-    plt.scatter(set_df["sepal length"], set_df["petal length"], color="red", marker="o", label="setosa")
-    plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="blue", marker="x", label="versicolor")
+    plt.scatter(set_df["sepal length"], set_df["petal length"], color="blue", marker="x", label="setosa")
+    plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="red", marker="o", label="versicolor")
     plt.xlabel("petal length")
     plt.ylabel("sepal length")
     plt.legend(loc="upper left")
