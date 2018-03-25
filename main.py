@@ -1,6 +1,6 @@
 from data_access.iris import load_iris_data
-from perceptron import Perceptron
-from plots.learning_results import plot_error_history, plot_2d_decision_boundary
+from neurons.perceptron import Perceptron
+from plots.learning_results import plot_2d_decision_boundary
 
 iris_df = load_iris_data()
 
