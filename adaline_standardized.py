@@ -19,4 +19,4 @@ adaline = Adaline(n_iter=15, eta=0.01)
 adaline.fit(train_X, train_y)
 
 # plot_error_history(adaline.cost_history_)
-plot_2d_decision_boundary(set_ver_df_s, adaline)
+plot_2d_decision_boundary(set_ver_df_s, adaline, support_vectors=True)

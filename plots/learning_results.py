@@ -11,7 +11,7 @@ def plot_error_history(errors_history):
 
 
 # TODO refactor to find classes
-def plot_2d_decision_boundary(iris_df, classifier):
+def plot_2d_decision_boundary(iris_df, classifier, support_vectors=False):
     set_df = iris_df[iris_df["class"] == "Iris-setosa"]
     ver_df = iris_df[iris_df["class"] == "Iris-versicolor"]
 
@@ -22,6 +22,12 @@ def plot_2d_decision_boundary(iris_df, classifier):
     plt.plot(des_x, des_y, color="navy", linewidth=2)
     plt.fill_between(des_x, min_y, des_y, color="blue", alpha=0.25)
     plt.fill_between(des_x, des_y, max_y, color="red", alpha=0.25)
+
+    if support_vectors:
+        neg_sup_y = z_projection(min_x, max_x, classifier.w_, z_value=-1)
+        pos_sup_y = z_projection(min_x, max_x, classifier.w_, z_value=1)
+        plt.plot(des_x, neg_sup_y, color="blue", linewidth=1, linestyle="--")
+        plt.plot(des_x, pos_sup_y, color="red", linewidth=1, linestyle="--")
 
     plt.scatter(set_df["sepal length"], set_df["petal length"], color="blue", marker="x", label="setosa")
     plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="red", marker="o", label="versicolor")
@@ -46,7 +52,12 @@ def decision_boundary(iris_df, classifier):
     max_y = set_ver_df["petal length"].max() + b
 
     w = classifier.w_
-    des_y1 = - (w[0] + w[1] * min_x) / w[2]
-    des_y2 = - (w[0] + w[1] * max_x) / w[2]
+    des_y1, des_y2 = z_projection(min_x, max_x, w, z_value=0)
 
     return min_x, max_x, min_y, max_y, des_y1, des_y2
+
+
+def z_projection(min_x, max_x, w, z_value=0):
+    y1 = (z_value - w[0] - w[1] * min_x) / w[2]
+    y2 = (z_value - w[0] - w[1] * max_x) / w[2]
+    return y1, y2
