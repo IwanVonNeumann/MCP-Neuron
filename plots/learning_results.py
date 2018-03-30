@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from plots.utils import iris_plot_settings
+from plots.utils import iris_plot_settings, get_decision_boundary_color
 
 
 def plot_error_history(errors_history):
@@ -23,18 +23,20 @@ def plot_2d_decision_boundary(iris_df, classifier, support_vectors=False):
     des_x = [min_x, max_x]
     des_y = [des_y1, des_y2]
 
-    col_1 = iris_plot_settings[class_labels[0]]["color"]
-    col_2 = iris_plot_settings[class_labels[1]]["color"]
-    plt.fill_between(des_x, min_y, des_y, color=col_1, alpha=0.25)
-    plt.fill_between(des_x, des_y, max_y, color=col_2, alpha=0.25)
+    # TODO decide which class really is negative
+    neg_class_color = iris_plot_settings[class_labels[0]]["color"]
+    pos_class_color = iris_plot_settings[class_labels[1]]["color"]
 
-    plt.plot(des_x, des_y, color="navy", linewidth=2)
+    plt.fill_between(des_x, min_y, des_y, color=neg_class_color, alpha=0.25)
+    plt.fill_between(des_x, des_y, max_y, color=pos_class_color, alpha=0.25)
 
     if support_vectors:
         neg_sup_y = z_projection(min_x, max_x, classifier.w_, z_value=-1)
         pos_sup_y = z_projection(min_x, max_x, classifier.w_, z_value=1)
-        plt.plot(des_x, neg_sup_y, color="blue", linewidth=1, linestyle="--")
-        plt.plot(des_x, pos_sup_y, color="red", linewidth=1, linestyle="--")
+        plt.plot(des_x, neg_sup_y, color=neg_class_color, linewidth=1, linestyle="--")
+        plt.plot(des_x, pos_sup_y, color=pos_class_color, linewidth=1, linestyle="--")
+
+    plt.plot(des_x, des_y, color=get_decision_boundary_color(class_labels), linewidth=2)
 
     for label in class_labels:
         df = split_df[label]

@@ -15,3 +15,12 @@ iris_plot_settings = {
         "label": "virginica"
     }
 }
+
+
+def get_decision_boundary_color(labels):
+    if set(labels) == {"Iris-setosa", "Iris-versicolor"}:
+        return "navy"
+    if set(labels) == {"Iris-setosa", "Iris-virginica"}:
+        return "navy"
+    if set(labels) == {"Iris-versicolor", "Iris-virginica"}:
+        return "maroon"
