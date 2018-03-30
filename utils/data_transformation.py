@@ -1,18 +1,14 @@
-# TODO binarize df?
-def binarize_set_ver_label(row):
-    binary_labels = {
-        "Iris-setosa": -1,
-        "Iris-versicolor": 1
-    }
-    return binary_labels[row["class"]]
+def binarize_class_labels(df):
+    class_labels = df["class"].unique()
+    if len(class_labels) != 2:
+        raise ValueError("DataFrame of two classes expected")
 
-
-def binarize_ver_vir_label(row):
     binary_labels = {
-        "Iris-versicolor": -1,
-        "Iris-virginica": 1
+        class_labels[0]: -1,
+        class_labels[1]: 1
     }
-    return binary_labels[row["class"]]
+    df["binary class"] = df.apply(lambda row: binary_labels[row["class"]], axis=1)
+    return df
 
 
 def standardize_columns(df, columns):
