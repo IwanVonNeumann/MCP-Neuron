@@ -17,3 +17,8 @@ def classes_scatter_plot(iris_df):
     plt.ylabel("petal length")
     plt.legend(loc="upper left")
     plt.show()
+
+
+def two_classes_scatter_plot(df, class_labels):
+    two_classes_df = df[df["class"].isin(class_labels)]
+    classes_scatter_plot(two_classes_df)
