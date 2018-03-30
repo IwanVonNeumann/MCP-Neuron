@@ -2,23 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from data_access.iris import load_iris_data
+from data_utils import binarize_set_ver_label
 from neurons.adaline import Adaline
 
 iris_df = load_iris_data()
 
-
-def binarize_label(row):
-    binary_labels = {
-        "Iris-setosa": -1,
-        "Iris-versicolor": 1
-    }
-    return binary_labels[row["class"]]
-
-
 setosa_versicolor = ["Iris-setosa", "Iris-versicolor"]
 
 set_ver_df = iris_df[iris_df["class"].isin(setosa_versicolor)].copy()
-set_ver_df["binary class"] = set_ver_df.apply(binarize_label, axis=1)
+set_ver_df["binary class"] = set_ver_df.apply(binarize_set_ver_label, axis=1)
 
 predictor_columns = ["sepal length", "petal length"]
 
