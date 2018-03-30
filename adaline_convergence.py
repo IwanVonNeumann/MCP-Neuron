@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from data_access.iris import load_iris_data
-from data_utils import binarize_set_ver_label
+from utils.data_transformation import binarize_set_ver_label
 from neurons.adaline import Adaline
 
 iris_df = load_iris_data()

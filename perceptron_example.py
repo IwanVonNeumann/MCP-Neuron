@@ -1,6 +1,4 @@
-
 from data_access.iris import load_iris_data
-from neurons.adaline import Adaline
 from neurons.perceptron import Perceptron
 from plots.learning_results import plot_2d_decision_boundary, plot_error_history
 
@@ -29,12 +27,4 @@ perceptron = Perceptron(eta=0.1, n_iter=10)
 perceptron.fit(train_X, train_y)
 
 # plot_error_history(perceptron.errors_history_)
-
 plot_2d_decision_boundary(iris_df, perceptron)
-
-# adaline = Adaline(eta=0.1, n_iter=10)
-# adaline.fit(train_X, train_y)
-
-# plot_error_history(adaline.cost_history_)
-
-# plot_2d_decision_boundary(iris_df, adaline)

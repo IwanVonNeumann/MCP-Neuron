@@ -10,6 +10,7 @@ def plot_error_history(errors_history):
     plt.show()
 
 
+# TODO refactor to find classes
 def plot_2d_decision_boundary(iris_df, classifier):
     set_df = iris_df[iris_df["class"] == "Iris-setosa"]
     ver_df = iris_df[iris_df["class"] == "Iris-versicolor"]
