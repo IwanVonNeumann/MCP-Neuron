@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+from plots.utils import plot_settings
+
 
 def plot_error_history(errors_history):
     epoch_numbers = range(1, len(errors_history) + 1)
@@ -10,18 +12,23 @@ def plot_error_history(errors_history):
     plt.show()
 
 
-# TODO refactor to find classes
 def plot_2d_decision_boundary(iris_df, classifier, support_vectors=False):
-    set_df = iris_df[iris_df["class"] == "Iris-setosa"]
-    ver_df = iris_df[iris_df["class"] == "Iris-versicolor"]
+    class_labels = iris_df["class"].unique()
+    if len(class_labels) != 2:
+        raise ValueError("DataFrame of two classes expected")
+
+    split_df = {label: iris_df[iris_df["class"] == label] for label in class_labels}
 
     min_x, max_x, min_y, max_y, des_y1, des_y2 = decision_boundary(iris_df, classifier)
     des_x = [min_x, max_x]
     des_y = [des_y1, des_y2]
 
+    col_1 = plot_settings[class_labels[0]]["color"]
+    col_2 = plot_settings[class_labels[1]]["color"]
+    plt.fill_between(des_x, min_y, des_y, color=col_1, alpha=0.25)
+    plt.fill_between(des_x, des_y, max_y, color=col_2, alpha=0.25)
+
     plt.plot(des_x, des_y, color="navy", linewidth=2)
-    plt.fill_between(des_x, min_y, des_y, color="blue", alpha=0.25)
-    plt.fill_between(des_x, des_y, max_y, color="red", alpha=0.25)
 
     if support_vectors:
         neg_sup_y = z_projection(min_x, max_x, classifier.w_, z_value=-1)
@@ -29,8 +36,10 @@ def plot_2d_decision_boundary(iris_df, classifier, support_vectors=False):
         plt.plot(des_x, neg_sup_y, color="blue", linewidth=1, linestyle="--")
         plt.plot(des_x, pos_sup_y, color="red", linewidth=1, linestyle="--")
 
-    plt.scatter(set_df["sepal length"], set_df["petal length"], color="blue", marker="x", label="setosa")
-    plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="red", marker="o", label="versicolor")
+    for label in class_labels:
+        df = split_df[label]
+        sett = plot_settings[label]
+        plt.scatter(df["sepal length"], df["petal length"], **sett)
 
     plt.title("2 classes decision boundary")
     plt.xlabel("sepal length")
@@ -40,16 +49,13 @@ def plot_2d_decision_boundary(iris_df, classifier, support_vectors=False):
 
 
 def decision_boundary(iris_df, classifier):
-    setosa_versicolor = ["Iris-setosa", "Iris-versicolor"]
-    set_ver_df = iris_df[iris_df["class"].isin(setosa_versicolor)]
-
     b = 0.5
 
-    min_x = set_ver_df["sepal length"].min() - b
-    max_x = set_ver_df["sepal length"].max() + b
+    min_x = iris_df["sepal length"].min() - b
+    max_x = iris_df["sepal length"].max() + b
 
-    min_y = set_ver_df["petal length"].min() - b
-    max_y = set_ver_df["petal length"].max() + b
+    min_y = iris_df["petal length"].min() - b
+    max_y = iris_df["petal length"].max() + b
 
     w = classifier.w_
     des_y1, des_y2 = z_projection(min_x, max_x, w, z_value=0)
