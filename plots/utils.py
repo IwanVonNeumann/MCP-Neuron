@@ -1,4 +1,4 @@
-plot_settings = {
+iris_plot_settings = {
     "Iris-setosa": {
         "color": "blue",
         "marker": "x",

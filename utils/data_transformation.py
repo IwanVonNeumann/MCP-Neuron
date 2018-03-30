@@ -1,3 +1,4 @@
+# TODO binarize df?
 def binarize_set_ver_label(row):
     binary_labels = {
         "Iris-setosa": -1,

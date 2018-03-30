@@ -1,30 +1,18 @@
 import matplotlib.pyplot as plt
 
-
-def two_classes_plot(iris_df):
-    set_df = iris_df[iris_df["class"] == "Iris-setosa"]
-    ver_df = iris_df[iris_df["class"] == "Iris-versicolor"]
-
-    plt.scatter(set_df["sepal length"], set_df["petal length"], color="blue", marker="x", label="setosa")
-    plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="red", marker="o", label="versicolor")
-
-    plt.title("2 classes of Iris flowers")
-    plt.xlabel("sepal length")
-    plt.ylabel("petal length")
-    plt.legend(loc="upper left")
-    plt.show()
+from plots.utils import iris_plot_settings
 
 
-def three_classes_plot(iris_df):
-    set_df = iris_df[iris_df["class"] == "Iris-setosa"]
-    ver_df = iris_df[iris_df["class"] == "Iris-versicolor"]
-    vir_df = iris_df[iris_df["class"] == "Iris-virginica"]
+def classes_scatter_plot(iris_df):
+    class_labels = iris_df["class"].unique()
+    split_df = {label: iris_df[iris_df["class"] == label] for label in class_labels}
 
-    plt.scatter(set_df["sepal length"], set_df["petal length"], color="blue", marker="x", label="setosa")
-    plt.scatter(ver_df["sepal length"], ver_df["petal length"], color="red", marker="o", label="versicolor")
-    plt.scatter(vir_df["sepal length"], vir_df["petal length"], color="lime", marker="^", label="virginica")
+    for label in class_labels:
+        df = split_df[label]
+        plot_settings = iris_plot_settings[label]
+        plt.scatter(df["sepal length"], df["petal length"], **plot_settings)
 
-    plt.title("3 classes of Iris flowers")
+    plt.title("Iris flowers classes")
     plt.xlabel("sepal length")
     plt.ylabel("petal length")
     plt.legend(loc="upper left")

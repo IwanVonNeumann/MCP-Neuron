@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from plots.utils import plot_settings
+from plots.utils import iris_plot_settings
 
 
 def plot_error_history(errors_history):
@@ -23,8 +23,8 @@ def plot_2d_decision_boundary(iris_df, classifier, support_vectors=False):
     des_x = [min_x, max_x]
     des_y = [des_y1, des_y2]
 
-    col_1 = plot_settings[class_labels[0]]["color"]
-    col_2 = plot_settings[class_labels[1]]["color"]
+    col_1 = iris_plot_settings[class_labels[0]]["color"]
+    col_2 = iris_plot_settings[class_labels[1]]["color"]
     plt.fill_between(des_x, min_y, des_y, color=col_1, alpha=0.25)
     plt.fill_between(des_x, des_y, max_y, color=col_2, alpha=0.25)
 
@@ -38,8 +38,8 @@ def plot_2d_decision_boundary(iris_df, classifier, support_vectors=False):
 
     for label in class_labels:
         df = split_df[label]
-        sett = plot_settings[label]
-        plt.scatter(df["sepal length"], df["petal length"], **sett)
+        plot_settings = iris_plot_settings[label]
+        plt.scatter(df["sepal length"], df["petal length"], **plot_settings)
 
     plt.title("2 classes decision boundary")
     plt.xlabel("sepal length")
