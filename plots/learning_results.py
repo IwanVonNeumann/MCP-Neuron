@@ -6,7 +6,7 @@ def plot_error_history(errors_history):
     plt.plot(epoch_numbers, errors_history, marker="o")
     plt.title("Errors history")
     plt.xlabel("Epochs")
-    plt.ylabel("Number of misclassifications")
+    plt.ylabel("Error")
     plt.show()
 
 
