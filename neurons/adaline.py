@@ -37,9 +37,9 @@ class Adaline(object):
         """
         self.w_ = np.zeros(1 + X.shape[1])
         self.cost_history_ = []
-        X_ = self.__prepend_unit_column(X)
+        X_ = self._prepend_unit_column(X)
 
-        for i in range(self.n_iter):
+        for _ in range(self.n_iter):
             errors = y - X_.dot(self.w_)
             dw = self.eta * X_.T.dot(errors)
             self.w_ += dw
@@ -49,7 +49,7 @@ class Adaline(object):
 
     def net_input(self, X):
         """Calculate net input"""
-        X_ = self.__prepend_unit_column(X)
+        X_ = self._prepend_unit_column(X)
         return np.dot(X_, self.w_)
 
     def activation(self, X):
@@ -61,7 +61,7 @@ class Adaline(object):
         return np.where(self.activation(X) >= 0.0, 1, -1)
 
     @staticmethod
-    def __prepend_unit_column(X):
+    def _prepend_unit_column(X):
         h, _ = X.shape
         unit_column = np.full((h, 1), 1)
         return np.append(unit_column, X, axis=1)
