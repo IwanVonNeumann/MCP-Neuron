@@ -13,7 +13,7 @@ class Adaline(object):
     -----------
     w_ : 1d-array
     Weights after fitting.
-    errors_ : list
+    cost_history_ : list
     Number of misclassifications in every epoch.
     """
 
@@ -37,18 +37,20 @@ class Adaline(object):
         """
         self.w_ = np.zeros(1 + X.shape[1])
         self.cost_history_ = []
+        X_ = self.__prepend_unit_column(X)
+
         for i in range(self.n_iter):
-            output = self.net_input(X)
-            errors = (y - output)
-            self.w_[1:] += self.eta * X.T.dot(errors)
-            self.w_[0] += self.eta * errors.sum()
+            errors = y - X_.dot(self.w_)
+            dw = self.eta * X_.T.dot(errors)
+            self.w_ += dw
             cost = (errors ** 2).sum() / 2.0
             self.cost_history_.append(cost)
         return self
 
     def net_input(self, X):
         """Calculate net input"""
-        return np.dot(X, self.w_[1:]) + self.w_[0]
+        X_ = self.__prepend_unit_column(X)
+        return np.dot(X_, self.w_)
 
     def activation(self, X):
         """Compute linear activation"""
@@ -57,3 +59,9 @@ class Adaline(object):
     def predict(self, X):
         """Return class label after unit step"""
         return np.where(self.activation(X) >= 0.0, 1, -1)
+
+    @staticmethod
+    def __prepend_unit_column(X):
+        h, _ = X.shape
+        unit_column = np.full((h, 1), 1)
+        return np.append(unit_column, X, axis=1)
