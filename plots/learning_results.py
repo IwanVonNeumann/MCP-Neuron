@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 from plots.utils import iris_plot_settings, get_decision_boundary_color
 
 
-def plot_error_history(errors_history):
-    epoch_numbers = range(1, len(errors_history) + 1)
-    plt.plot(epoch_numbers, errors_history, marker="o")
-    plt.title("Errors history")
-    plt.xlabel("Epochs")
-    plt.ylabel("Error")
+def plot_error_history(history, plot_settings):
+    epoch_numbers = range(1, len(history) + 1)
+    plt.plot(epoch_numbers, history, marker="o")
+    plt.title(plot_settings["title"])
+    plt.xlabel(plot_settings["xlabel"])
+    plt.ylabel(plot_settings["ylabel"])
     plt.show()
 
 

@@ -18,5 +18,10 @@ train_y = set_ver_df["binary class"].values
 perceptron = Perceptron(eta=0.1, n_iter=10)
 perceptron.fit(train_X, train_y)
 
-# plot_error_history(perceptron.errors_history_)
+error_plot_settings = {
+    "title": "Errors history",
+    "xlabel": "Epochs",
+    "ylabel": "Error"
+}
+# plot_error_history(perceptron.errors_history_, error_plot_settings)
 plot_2d_decision_boundary(set_ver_df, perceptron)

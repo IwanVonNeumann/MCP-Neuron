@@ -1,7 +1,7 @@
 from data_access.iris import load_iris_data
 from utils.data_transformation import standardize_columns, binarize_class_labels
 from neurons.adaline import Adaline
-from plots.learning_results import plot_2d_decision_boundary
+from plots.learning_results import plot_2d_decision_boundary, plot_error_history
 
 iris_df = load_iris_data()
 
@@ -18,5 +18,10 @@ train_y = set_ver_df_s["binary class"].values
 adaline = Adaline(n_iter=15, eta=0.01)
 adaline.fit(train_X, train_y)
 
-# plot_error_history(adaline.cost_history_)
+error_plot_settings = {
+    "title": "Adaline Gradient Descent",
+    "xlabel": "Epochs",
+    "ylabel": "Sum-squared-error"
+}
+# plot_error_history(adaline.cost_history_, error_plot_settings)
 plot_2d_decision_boundary(set_ver_df_s, adaline, support_vectors=True)
