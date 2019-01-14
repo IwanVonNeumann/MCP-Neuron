@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 
 from plots.utils import iris_plot_settings, get_decision_boundary_color
@@ -59,7 +60,7 @@ def decision_boundary(iris_df, classifier):
     min_y = iris_df["petal length"].min() - b
     max_y = iris_df["petal length"].max() + b
 
-    w = classifier.w_
+    w = np.append(np.array([classifier.b_]), classifier.w_)
     des_y1, des_y2 = z_projection(min_x, max_x, w, z_value=0)
 
     return min_x, max_x, min_y, max_y, des_y1, des_y2

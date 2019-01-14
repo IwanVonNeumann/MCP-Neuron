@@ -7,11 +7,11 @@ class Perceptron(object):
     errors_: Number of misclassifications in every epoch, list
     """
 
-    def __init__(self, eta=0.01, n_iter=10):
-        self.eta = eta  # Learning rate, float in (0.0, 1.0)
+    def __init__(self, learning_rate=0.01, n_iter=10):
+        self.learning_rate = learning_rate  # float in (0.0, 1.0)
         self.n_iter = n_iter  # Passes over the training dataset, int
 
-    def fit(self, X, y):
+    def fit(self, X, Y):
         """Fit training data.
         X: Training vectors, {array-like}, shape = [n_samples, n_features], where
         n_samples is the number of samples and
@@ -19,22 +19,25 @@ class Perceptron(object):
         y: Target values, array-like, shape = [n_samples]
         """
 
-        self.w_ = np.zeros(1 + X.shape[1])
+        n, m = X.shape
+
+        self.w_ = np.zeros(m)
+        self.b_ = 0
         self.errors_history_ = []
 
         for _ in range(self.n_iter):
             errors = 0
-            for xi, target in zip(X, y):
-                update = self.eta * (target - self.predict(xi))
-                self.w_[1:] += update * xi
-                self.w_[0] += update
-                errors += int(update != 0.0)
+            for x, y in zip(X, Y):
+                y_pred = self.predict(x)
+                self.w_ += self.learning_rate * (y - y_pred) * x
+                self.b_ += self.learning_rate * (y - y_pred)
+                errors += int(y != y_pred)
             self.errors_history_.append(errors)
         return self
 
     def net_input(self, X):
         """Calculate net input"""
-        return np.dot(X, self.w_[1:]) + self.w_[0]
+        return X.dot(self.w_) + self.b_
 
     def predict(self, X):
         """Return class label after unit step"""

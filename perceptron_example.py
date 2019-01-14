@@ -15,7 +15,7 @@ predictor_columns = ["sepal length", "petal length"]
 train_X = set_ver_df[predictor_columns].values
 train_y = set_ver_df["binary class"].values
 
-perceptron = Perceptron(eta=0.1, n_iter=10)
+perceptron = Perceptron(learning_rate=0.1, n_iter=10)
 perceptron.fit(train_X, train_y)
 
 error_plot_settings = {
