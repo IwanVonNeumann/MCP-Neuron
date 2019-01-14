@@ -3,11 +3,15 @@ def binarize_class_labels(df):
     if len(class_labels) != 2:
         raise ValueError("DataFrame of two classes expected")
 
-    binary_labels = {
-        class_labels[0]: -1,
-        class_labels[1]: 1
+    negative, positive = class_labels
+
+    encoded_labels = {
+        negative: -1,
+        positive: 1
     }
-    df["binary class"] = df.apply(lambda row: binary_labels[row["class"]], axis=1)
+
+    df["binary class"] = df.apply(lambda row: encoded_labels[row["class"]], axis=1)
+
     return df
 
 
