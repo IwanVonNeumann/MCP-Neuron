@@ -1,3 +1,5 @@
+import time
+
 import numpy as np
 
 
@@ -8,6 +10,8 @@ class Adaline:
         self.n_iter = n_iter
 
     def fit(self, X, y):
+        start = time.time()
+
         n, m = X.shape
 
         self.w_ = np.zeros(m)
@@ -22,6 +26,10 @@ class Adaline:
 
             cost = np.sum((y - a) ** 2) / 2
             self.cost_history_.append(cost)
+
+        end = time.time()
+        self.learning_time_ = end - start
+
         return self
 
     def net_input(self, X):

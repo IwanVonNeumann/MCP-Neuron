@@ -1,3 +1,4 @@
+import time
 import numpy as np
 
 from math import ceil
@@ -11,6 +12,7 @@ class AdalineMGD:
         self.n_iter = n_iter
 
     def fit(self, X, y, batch_size=16):
+        start = time.time()
         n, m = X.shape
 
         self.w_ = np.zeros(m)
@@ -28,6 +30,10 @@ class AdalineMGD:
             a = self.activation(X)
             cost = np.sum((y - a) ** 2) / 2
             self.cost_history_.append(cost)
+
+        end = time.time()
+        self.learning_time_ = end - start
+
         return self
 
     def split_into_batches(self, X, y, size=16, shuffle=True):
