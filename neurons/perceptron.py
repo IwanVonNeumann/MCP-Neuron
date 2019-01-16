@@ -23,6 +23,7 @@ class Perceptron(object):
 
         self.w_ = np.zeros(m)
         self.b_ = 0
+
         self.errors_history_ = []
 
         for _ in range(self.n_iter):
