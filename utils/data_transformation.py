@@ -1,3 +1,6 @@
+from sklearn.preprocessing import StandardScaler
+
+
 def binarize_class_labels(df):
     class_labels = df["class"].unique()
     if len(class_labels) != 2:
@@ -15,9 +18,9 @@ def binarize_class_labels(df):
     return df
 
 
-def standardize_columns(df, columns):
+def standardize(df, columns):
     standardized_df = df.copy()
+    scaler = StandardScaler()
     for column in columns:
-        x = standardized_df[column]
-        standardized_df[column] = (x - x.mean()) / x.std()
+        standardized_df[column] = scaler.fit_transform(standardized_df[[column]])
     return standardized_df

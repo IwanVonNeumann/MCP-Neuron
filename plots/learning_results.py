@@ -32,8 +32,9 @@ def plot_2d_decision_boundary(iris_df, classifier, support_vectors=False):
     plt.fill_between(des_x, des_y, max_y, color=pos_class_color, alpha=0.25)
 
     if support_vectors:
-        neg_sup_y = z_projection(min_x, max_x, classifier.w_, z_value=-1)
-        pos_sup_y = z_projection(min_x, max_x, classifier.w_, z_value=1)
+        w = np.append(np.array([classifier.b_]), classifier.w_)
+        neg_sup_y = z_projection(min_x, max_x, w, z_value=-1)
+        pos_sup_y = z_projection(min_x, max_x, w, z_value=1)
         plt.plot(des_x, neg_sup_y, color=neg_class_color, linewidth=1, linestyle="--")
         plt.plot(des_x, pos_sup_y, color=pos_class_color, linewidth=1, linestyle="--")
 

@@ -17,10 +17,10 @@ predictor_columns = ["sepal length", "petal length"]
 train_X = set_ver_df[predictor_columns].values
 train_y = set_ver_df["binary class"].values
 
-adaline_1 = Adaline(n_iter=10, eta=0.01)
+adaline_1 = Adaline(n_iter=10, learning_rate=0.01)
 adaline_1.fit(train_X, train_y)
 
-adaline_2 = Adaline(n_iter=10, eta=0.0001)
+adaline_2 = Adaline(n_iter=10, learning_rate=0.0001)
 adaline_2.fit(train_X, train_y)
 
 plt.figure(figsize=(8, 4))
