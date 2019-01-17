@@ -11,7 +11,7 @@ class AdalineMGD:
         self.learning_rate = learning_rate
         self.n_iter = n_iter
 
-    def fit(self, X, y, batch_size=16):
+    def fit(self, X, y, batch_size=16, log_details=False):
         start = time.time()
         n, m = X.shape
 
@@ -19,6 +19,7 @@ class AdalineMGD:
         self.b_ = 0
 
         self.cost_history_ = []
+        self.cost_history_detailed_ = []
 
         for _ in range(self.n_iter):
             X_batches, y_batches = self.split_into_batches(X, y, size=batch_size, shuffle=True)
@@ -26,6 +27,11 @@ class AdalineMGD:
                 a_b = self.activation(X_b)
                 self.w_ += self.learning_rate * X_b.T.dot(y_b - a_b)
                 self.b_ += self.learning_rate * np.sum(y_b - a_b)
+
+                if log_details:
+                    a = self.activation(X)
+                    cost = np.sum((y - a) ** 2) / 2
+                    self.cost_history_detailed_.append(cost)
 
             a = self.activation(X)
             cost = np.sum((y - a) ** 2) / 2
