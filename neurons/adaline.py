@@ -40,3 +40,6 @@ class Adaline:
 
     def predict(self, X):
         return np.where(self.activation(X) >= 0.0, 1, -1)
+
+    def cost(self, X, y):
+        return (1 / 2) * ((y - self.activation(X)) ** 2).sum()
