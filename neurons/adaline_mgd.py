@@ -15,7 +15,7 @@ class AdalineMGD:
         start = time.time()
         n, m = X.shape
 
-        self.w_ = np.zeros(m)
+        self.w_ = np.zeros(shape=(m, 1))
         self.b_ = 0
 
         self.cost_history_ = []

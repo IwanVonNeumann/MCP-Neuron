@@ -14,7 +14,7 @@ class Adaline:
 
         n, m = X.shape
 
-        self.w_ = np.zeros(m)
+        self.w_ = np.zeros(shape=(m, 1))
         self.b_ = 0
 
         self.cost_history_ = []
@@ -24,7 +24,7 @@ class Adaline:
             self.w_ += self.learning_rate * X.T.dot(y - a)
             self.b_ += self.learning_rate * np.sum(y - a)
 
-            cost = np.sum((y - a) ** 2) / 2
+            cost = self.cost(X, y)
             self.cost_history_.append(cost)
 
         end = time.time()
@@ -42,4 +42,5 @@ class Adaline:
         return np.where(self.activation(X) >= 0.0, 1, -1)
 
     def cost(self, X, y):
-        return (1 / 2) * ((y - self.activation(X)) ** 2).sum()
+        a = self.activation(X)
+        return ((y - a) ** 2).sum() / 2
